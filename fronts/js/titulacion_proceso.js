@@ -500,10 +500,10 @@ function verificarDocumentosCompletos() {
 }
 
 // Variable para prevenir doble clic
-let finalizandoProceso = false;
+    let finalizandoProceso = false;
 
 // Finalizar proceso: crear folio y subir todos los documentos
-function finalizarProceso() {
+    function finalizarProceso() {
     console.log('=== FINALIZAR PROCESO INICIADO ===');
     console.log('Timestamp:', new Date().toISOString());
     
