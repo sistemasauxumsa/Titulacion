@@ -1,0 +1,253 @@
+:root {
+  --input-padding-x: .75rem;
+  --input-padding-y: .75rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body {
+ 
+}
+
+
+body{ 
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+
+	/*-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;*/
+	font-family: 'Noto Sans', sans-serif;/* fuente de google fonts, vease index.php */
+	background-color:#eeeef0;
+	font-size: 1rem;
+
+}
+
+
+a {
+  text-decoration: none !important;
+  color: #5E6073;
+}
+
+.logo_img{
+	max-width:300px;
+}
+
+.head-text{
+	text-align:left;
+}
+
+.backcolor-header{
+	background: linear-gradient(to right, rgba(14,14,14,1) 0%,rgba(56,56,56,0.95) 61%,rgba(94,94,94,0.97) 100%);
+}
+
+
+.card-shadow {
+	/*box-shadow: 2px 4px 10px 2px #959595;*/
+	box-shadow: 1px 1px 20px 9px rgba(194,187,187,0.75);
+	-webkit-box-shadow: 1px 1px 20px 9px rgba(194,187,187,0.75);
+	-moz-box-shadow: 1px 1px 20px 9px rgba(194,187,187,0.75);
+}
+
+.title-1{
+	font-size:2.2em;
+}
+
+.cursoescolar {
+	font-size:1.2em;
+	border: 2px solid #e0a81f;
+	border-radius:2em;
+	padding:5px 12px 5px 12px;
+}
+
+.icon-req {
+	font-size: 1.7em;
+	color: #e0a81f;
+}
+
+#login_username{
+	font-size:1.4em;
+	letter-spacing: 2px; 
+	text-align:center;
+}
+
+/*  CUADROS QUE INDICAN PASOS PARA INSCRIPCION */
+.step-icon {
+	width: 50px;
+	height: 50px;
+	min-height:40px;
+	min-width:40px;
+	max-height:50px;
+	max-width:50px;
+	border-radius: 50%;
+	background-color: #fff; /*#f1f5f9; #f8f9fa;*/
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding:3px;
+	font-size: 1.5em;
+	color: #ac7c00; 
+}
+
+.step-card {
+	height: 100%;
+	transition: all 0.3s ease;
+	border-color: #E0E2E5;
+	font-size: 0.95em;
+	background-color: #f8f9fa;
+}
+
+ /* FIN DE LOS PASOS PARA INSCRIPCION */
+
+
+.msg_curp {
+	font-weight:bold;
+	color:#ddd;
+	background-color:#000;
+}
+
+
+.btn_IniciaProceso {
+	animation: myAnim 1s ease 0s 1 normal forwards;
+}
+
+
+@keyframes myAnim {
+	0% {
+		transform: scale3d(1, 1, 1);
+	}
+
+	30% {
+		transform: scale3d(1.45, 0.75, 1);
+	}
+
+	40% {
+		transform: scale3d(0.85, 1.25, 1);
+	}
+
+	50% {
+		transform: scale3d(1.35, 0.85, 1);
+	}
+
+	65% {
+		transform: scale3d(0.95, 1.05, 1);
+	}
+
+	75% {
+		transform: scale3d(1.08, 0.95, 1);
+	}
+
+	100% {
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+.btn-primary{
+	background-color:#0D96F2 !important;
+}
+
+.btn-primary:hover{
+	background-color:#2984D1 !important;
+}
+
+.btn-warning{
+	background-color:#FEE685 !important;
+}
+
+.btn-warning:hover{
+	background-color:#FDD430 !important;
+}
+
+.btn-success{
+	background-color:#4FB054 !important;
+}
+
+.btn-success:hover{
+	background-color:#419045 !important;
+}
+
+.btn-danger{
+	background-color:#E74C3C !important;
+}
+
+.btn-danger:hover{
+	background-color:#BA2717 !important;
+}
+
+
+.btn-secondary{
+	background-color:#798586 !important;
+}
+
+.btn-secondary:hover{
+	background-color:#4E5556 !important;
+}
+
+.bg-success2 {
+	background-color:#27AE60 !important;
+}
+
+.bg-danger2 {
+	background-color:#EC7063 !important;
+}
+
+.bg-warning2 {
+	background-color:#F4D03F !important;
+}
+
+
+@media screen and (max-width:767px) {  /* menores a 640*/
+   
+	html {
+		font-size: 0.87rem;
+	}
+	
+	.logo_img{
+		max-width:190px;
+		width:75%;
+		height:auto;
+		padding-bottom:10px;
+	}
+	
+	.head-text{
+		text-align:center;
+	}
+	
+	
+ }
+ 
+ 
+@media screen and (max-width:1024px) and (min-width:640px) { /* entre 640 y  1024 */
+   	html {
+		font-size: 0.93rem;
+	}
+	
+	
+	.logo_img{
+		width:87%;
+		height:auto;
+	}
+	
+	
+	
+}
+
+
+@media screen and (min-width:1024px) {
+	
+	.logo_img{
+		width:90%;
+		height:auto;
+	}
+	
+}

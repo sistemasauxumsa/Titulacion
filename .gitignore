@@ -1,0 +1,85 @@
+# Archivos de configuración y entorno
+.env
+.env.local
+.env.production
+config.php
+configuracion.php
+configuracion_simple.php
+
+# Archivos temporales y de sistema
+*.tmp
+*.temp
+*.log
+error.log
+access.log
+
+# Archivos subidos por usuarios
+archivos/
+documentos_titulacion/
+uploads/
+temp/
+
+# Base de datos
+*.sql
+*.db
+*.sqlite
+*.sqlite3
+
+# Dependencias de Composer (si las usas)
+vendor/
+composer.lock
+
+# Dependencias de Node.js (si las usas)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Archivos de backup
+*.bak
+*.backup
+*.old
+
+# Archivos de cache
+cache/
+*.cache
+
+# Archivos específicos de XAMPP
+xampp/
+htdocs/*.html
+
+# Archivos de sesión
+sessions/
+*.sess
+
+# Archivos de logs de PHP
+logs/
+php_errors.log
+
+# Archivos de configuración de Apache
+.htaccess
+httpd.conf
+
+# Archivos de certificados SSL
+*.pem
+*.key
+*.crt
+*.csr
+
+# Archivos comprimidos
+*.zip
+*.tar.gz
+*.rar
+
+# Documentación temporal
+README.md.temp
+CHANGELOG.temp
