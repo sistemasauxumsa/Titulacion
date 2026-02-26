@@ -123,6 +123,11 @@ function verificarCURP() {
         return;
     }
     
+    // Limpiar cualquier folio completado existente al verificar nueva CURP
+    sessionStorage.removeItem('folio_completado');
+    sessionStorage.removeItem('curp_procesada');
+    sessionStorage.removeItem('folio_timestamp');
+    
     // Mostrar loading
     mostrarResultado('info', '<div class="spinner-border spinner-border-sm me-2" role="status"></div>Buscando en la base de datos...');
     

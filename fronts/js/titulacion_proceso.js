@@ -757,12 +757,16 @@ function actualizarEstadoFinalizado(idFolio) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Proceso de titulación finalizado exitosamente');
-            document.getElementById('estado_proceso').textContent = 'Completado';
-            document.getElementById('btn_finalizar').disabled = true;
-            // Limpiar archivos temporales
-            archivosTemporales = {};
-            documentosRequeridos = [];
+            // Guardar información del folio completado con timestamp
+            sessionStorage.setItem('folio_completado', folioActual.folio);
+            sessionStorage.setItem('curp_procesada', datosAlumno.curp);
+            sessionStorage.setItem('folio_timestamp', Date.now().toString());
+            
+            // Mostrar mensaje de éxito
+            alert('¡Proceso de titulación finalizado exitosamente!\n\nFolio: ' + folioActual.folio + '\n\nMostrando tu folio...');
+            
+            // Mostrar folio directamente sin recargar página
+            mostrarFolioCompletadoDirecto();
         } else {
             alert('Error al finalizar proceso: ' + data.error);
         }
@@ -1075,4 +1079,18 @@ function cambiarPagina(pagina) {
             console.error('No hay datosAlumno al llegar a página 4');
         }
     }
+}
+
+// Función para mostrar folio completado directamente (sin recargar)
+function mostrarFolioCompletadoDirecto() {
+    // Ocultar proceso normal y navegación
+    document.getElementById('proceso_normal').style.display = 'none';
+    document.querySelector('.btn-group.w-100').style.display = 'none';
+    document.getElementById('consulta_folio_section').style.display = 'none';
+    
+    // Mostrar vista de folio completado
+    document.getElementById('folio_completado_view').style.display = 'block';
+    document.getElementById('folio_completado_display').textContent = folioActual.folio;
+    
+    console.log('Mostrando folio completado directamente:', folioActual.folio);
 }

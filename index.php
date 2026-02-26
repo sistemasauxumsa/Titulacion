@@ -169,8 +169,45 @@ $pagina_actual = $config['pagina_actual'];
 				</div>
 			</div>
 				
+				<!-- Vista de Folio Completado -->
+				<div id="folio_completado_view" class="row mb-3 g-3" style="display: none;">
+					<div class="col-12">
+						<div class="card step-card border-success border-3">
+							<div class="card-body text-center">
+								<div class="mb-4">
+									<div class="bg-success text-white rounded-circle p-4 d-inline-block">
+										<i class="bi bi-check-circle-fill fs-1"></i>
+									</div>
+								</div>
+								<h2 class="text-success mb-3">¡Proceso de Titulación Completado!</h2>
+								<div class="alert alert-success mb-4">
+									<h4 class="alert-heading"><i class="bi bi-file-earmark-text me-2"></i>Tu Folio:</h4>
+									<p class="fs-2 fw-bold mb-0" id="folio_completado_display">-</p>
+								</div>
+								<div class="alert alert-info mb-4">
+									<h5 class="alert-heading"><i class="bi bi-info-circle me-2"></i>Información Importante:</h5>
+									<ul class="text-start mb-0">
+										<li>Tu proceso de titulación ha sido completado exitosamente</li>
+										<li>Guarda tu folio para futuras consultas</li>
+										<li>Puedes consultar el estado de tu proceso en cualquier momento</li>
+										<li>Los documentos han sido recibidos y están en proceso de revisión</li>
+									</ul>
+								</div>
+								<div class="d-flex justify-content-center gap-3">
+									<button class="btn btn-primary btn-lg" onclick="consultarFolioCompletado()">
+										<i class="bi bi-search me-2"></i>Consultar Estado
+									</button>
+									<button class="btn btn-outline-secondary btn-lg" onclick="reiniciarProceso()">
+										<i class="bi bi-arrow-clockwise me-2"></i>Nuevo Proceso
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<!-- Contenido dinámico según página -->
-				<div class="row mb-3 g-3">
+				<div class="row mb-3 g-3" id="proceso_normal">
 					<!-- Página 1: Verificación CURP -->
 					<div id="pagina-1" class="pagina-content active">
 						<div class="col-12">
@@ -183,12 +220,11 @@ $pagina_actual = $config['pagina_actual'];
 									<div class="text-start text-secondary mt-3">
 										<p class="card-text fs-5">Ingresa tu CURP para verificar tu información en el sistema de titulación.</p>
 										<div class="alert alert-info">
-											<h5><i class="bi bi-info-circle-fill me-2"></i>Instrucciones para esta página:</h5>
+											<h5><i class="bi bi-info-circle-fill me-2"></i>Instrucciones para el proceso:</h5>
 											<ul class="mb-0">
 												<li>Escribe tu CURP de 18 caracteres</li>
-												<li>El sistema buscará tu información en la base de datos</li>
-												<li>Si eres encontrado, pasarás a la página de datos</li>
-												<li>Si no eres encontrado, recibirás un mensaje de error</li>
+												<li>El sistema te indicará si eres apto para iniciar el proceso</li>
+												<li>Si no eres apto, recibirás un mensaje explicando el motivo</li>
 											</ul>
 										</div>
 										<div class="mt-3">
@@ -362,6 +398,117 @@ $pagina_actual = $config['pagina_actual'];
 		if (e.key === 'Enter') {
 			consultarFolio();
 		}
+	});
+
+	// Función para mostrar vista de folio completado
+	function mostrarFolioCompletado() {
+		const folioCompletado = sessionStorage.getItem('folio_completado');
+		const curpProcesada = sessionStorage.getItem('curp_procesada');
+		const timestamp = sessionStorage.getItem('folio_timestamp');
+		
+		// Verificar si el folio es válido (no expirado)
+		if (folioCompletado && curpProcesada && timestamp) {
+			const ahora = Date.now();
+			const tiempoTranscurrido = ahora - parseInt(timestamp);
+			const tiempoMaximoVista = 2 * 60 * 1000; // 2 minutos máximo para mostrar el folio
+			
+			// Si pasó más tiempo del permitido, limpiar y mostrar proceso normal
+			if (tiempoTranscurrido > tiempoMaximoVista) {
+				// Pasó mucho tiempo, limpiar todo
+				sessionStorage.removeItem('folio_completado');
+				sessionStorage.removeItem('curp_procesada');
+				sessionStorage.removeItem('folio_timestamp');
+				console.log('Limpiando folio por tiempo expirado (' + (tiempoTranscurrido/1000) + 's)');
+				return;
+			}
+			
+			// Ocultar proceso normal y navegación
+			document.getElementById('proceso_normal').style.display = 'none';
+			document.querySelector('.btn-group.w-100').style.display = 'none';
+			document.getElementById('consulta_folio_section').style.display = 'none';
+			
+			// Mostrar vista de folio completado
+			document.getElementById('folio_completado_view').style.display = 'block';
+			document.getElementById('folio_completado_display').textContent = folioCompletado;
+			
+			// Mostrar tiempo restante
+			const tiempoRestante = Math.ceil((tiempoMaximoVista - tiempoTranscurrido) / 1000);
+			console.log('Mostrando folio completado:', folioCompletado, '- Tiempo restante:', tiempoRestante + 's');
+		}
+	}
+
+	// Función para consultar el folio completado
+	function consultarFolioCompletado() {
+		const folio = sessionStorage.getItem('folio_completado');
+		if (folio) {
+			sessionStorage.setItem('folio_consulta', folio);
+			window.location.href = `consulta_folio.php`;
+		}
+	}
+
+	// Función para reiniciar el proceso
+	function reiniciarProceso() {
+		// Limpiar sessionStorage
+		sessionStorage.removeItem('folio_completado');
+		sessionStorage.removeItem('curp_procesada');
+		sessionStorage.removeItem('folio_timestamp');
+		sessionStorage.removeItem('folio_consulta');
+		
+		// Reiniciar variables globales
+		if (typeof datosAlumno !== 'undefined') {
+			datosAlumno = null;
+		}
+		if (typeof carrerasAlumno !== 'undefined') {
+			carrerasAlumno = null;
+		}
+		if (typeof folioActual !== 'undefined') {
+			folioActual = null;
+		}
+		
+		// Recargar página
+		location.reload();
+	}
+
+	// Verificar si hay un folio completado al cargar la página
+	document.addEventListener('DOMContentLoaded', function() {
+		// Detectar si es recarga de página o back del navegador
+		const esRecarga = (
+			performance.navigation.type === 1 || // Recarga explícita
+			window.performance.getEntriesByType && 
+			window.performance.getEntriesByType('navigation')[0]?.type === 'reload' ||
+			sessionStorage.getItem('pagina_recargada') === 'true'
+		);
+		
+		// Si es recarga, limpiar folio completado
+		if (esRecarga) {
+			console.log('Detectada recarga de página, limpiando folio completado');
+			sessionStorage.removeItem('folio_completado');
+			sessionStorage.removeItem('curp_procesada');
+			sessionStorage.removeItem('folio_timestamp');
+		} else {
+			// No es recarga, verificar si hay folio para mostrar
+			mostrarFolioCompletado();
+		}
+		
+		// Marcar que la página se ha cargado
+		sessionStorage.setItem('pagina_recargada', 'false');
+		
+		// Prevenir back del navegador después de mostrar folio
+		window.addEventListener('popstate', function(event) {
+			const folioCompletado = sessionStorage.getItem('folio_completado');
+			if (folioCompletado) {
+				console.log('Detectado back del navegador con folio activo, limpiando');
+				sessionStorage.removeItem('folio_completado');
+				sessionStorage.removeItem('curp_procesada');
+				sessionStorage.removeItem('folio_timestamp');
+				location.reload();
+			}
+		});
+		
+		// Detectar cuando el usuario sale de la página
+		window.addEventListener('beforeunload', function() {
+			sessionStorage.setItem('pagina_recargada', 'true');
+		});
 	});
 	</script>
 
