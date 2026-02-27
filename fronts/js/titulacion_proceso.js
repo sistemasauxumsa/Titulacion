@@ -985,7 +985,7 @@ function mostrarDocumentos(documentos) {
                     ` : `
                         <div class="mb-2">
                             <small class="text-muted">
-                                ${doc.fecha_subida ? `Subido: ${new Date(doc.fecha_subida).toLocaleDateString()}` : ''}
+                                ${doc.fecha_subida ? `` : ''}
                                 ${doc.fecha_revision ? `<br>Revisado: ${new Date(doc.fecha_revision).toLocaleDateString()}` : ''}
                             </small>
                         </div>

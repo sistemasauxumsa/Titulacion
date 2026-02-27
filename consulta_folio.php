@@ -291,7 +291,7 @@ $cursoescolarinsc = $config['cursoescolarinsc'];
                                         <i class="bi bi-cloud-upload me-1"></i>Subir Documento
                                     </button>
                                 ` : ''}
-                                ${doc.fecha_subida ? `<small class="text-muted d-block mt-2">Subido: ${new Date(doc.fecha_subida).toLocaleString()}</small>` : ''}
+                                ${doc.fecha_subida ? `` : ''}
                             </div>
                         </div>
                     </div>

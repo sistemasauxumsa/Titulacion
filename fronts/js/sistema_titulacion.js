@@ -221,7 +221,7 @@ function renderizarDocumentos(faltantes, completos) {
             div.innerHTML = `
                 <h4>${doc.nombre_documento}</h4>
                 <p>Estado: ${doc.estado_actual}</p>
-                ${doc.fecha_subida ? `<p>Subido: ${doc.fecha_subida}</p>` : ''}
+                ${doc.fecha_subida ? `` : ''}
                 ${doc.comentarios ? `<p>Comentarios: ${doc.comentarios}</p>` : ''}
             `;
             container.appendChild(div);
